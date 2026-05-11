@@ -1,0 +1,11 @@
+{
+  "processed_dir": "data/processed",
+  "feature": "mfcc",
+  "max_frames": 200,
+  "sr": 16000,
+  "top_db": 20,
+  "hop_length": 512,
+  "n_mfcc": 13,
+  "n_mels": 64,
+  "n_fft": 2048
+}

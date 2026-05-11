@@ -1,0 +1,326 @@
+[
+  {
+    "case": "Matching - Angry Audio + Angry Text",
+    "audio_type": "angry",
+    "text": "I am so angry right now!",
+    "result": {
+      "success": true,
+      "speech_prediction": "angry",
+      "text_prediction": "angry",
+      "final_prediction": "angry",
+      "confidence": 0.7670324492924319,
+      "speech_probabilities": {
+        "angry": 0.9922577142715454,
+        "disgust": 0.0004182188131380826,
+        "fear": 0.0019491384737193584,
+        "happy": 0.0051871007308363914,
+        "neutral": 5.995440460537793e-06,
+        "sad": 0.00013449834659695625,
+        "surprise": 4.7349407395813614e-05
+      },
+      "text_probabilities": {
+        "angry": 0.4291945696385035,
+        "disgust": 0.048364265145817,
+        "fear": 0.0710203574924262,
+        "happy": 0.13295967481139553,
+        "neutral": 0.14019687473179682,
+        "sad": 0.11610301659953695,
+        "surprise": 0.06216124158052403
+      },
+      "fusion_details": {
+        "weights": {
+          "speech": 0.6,
+          "text": 0.4
+        },
+        "used_labels": [
+          "angry",
+          "disgust",
+          "fear",
+          "happy",
+          "neutral",
+          "sad",
+          "surprise"
+        ],
+        "fused_probabilities": {
+          "angry": 0.7670324492924319,
+          "disgust": 0.01959663716415267,
+          "fear": 0.02957762580641958,
+          "happy": 0.05629612984005688,
+          "neutral": 0.05608234663597797,
+          "sad": 0.04652190521557443,
+          "surprise": 0.02489290604538664
+        }
+      }
+    }
+  },
+  {
+    "case": "Matching - Happy Audio + Happy Text",
+    "audio_type": "happy",
+    "text": "This is amazing! I am so happy!",
+    "result": {
+      "success": true,
+      "speech_prediction": "happy",
+      "text_prediction": "happy",
+      "final_prediction": "happy",
+      "confidence": 0.5919643349079129,
+      "speech_probabilities": {
+        "angry": 0.246860072016716,
+        "disgust": 0.001633720938116312,
+        "fear": 0.0839308649301529,
+        "happy": 0.58805912733078,
+        "neutral": 0.0004353609401732683,
+        "sad": 0.00018172392447013408,
+        "surprise": 0.07889915257692337
+      },
+      "text_probabilities": {
+        "angry": 0.056073592553617185,
+        "disgust": 0.10663962872082607,
+        "fear": 0.0602312592876996,
+        "happy": 0.5978221663921112,
+        "neutral": 0.06861851194034942,
+        "sad": 0.05178469664577107,
+        "surprise": 0.05883014445962553
+      },
+      "fusion_details": {
+        "weights": {
+          "speech": 0.6,
+          "text": 0.4
+        },
+        "used_labels": [
+          "angry",
+          "disgust",
+          "fear",
+          "happy",
+          "neutral",
+          "sad",
+          "surprise"
+        ],
+        "fused_probabilities": {
+          "angry": 0.17054547791301314,
+          "disgust": 0.04363608345799387,
+          "fear": 0.07445102166105466,
+          "happy": 0.5919643349079129,
+          "neutral": 0.027708620963561668,
+          "sad": 0.020822912729915516,
+          "surprise": 0.0708715483665481
+        }
+      }
+    }
+  },
+  {
+    "case": "Conflicting - Angry Audio + Happy Text",
+    "audio_type": "angry",
+    "text": "I love this! Everything is wonderful!",
+    "result": {
+      "success": true,
+      "speech_prediction": "angry",
+      "text_prediction": "neutral",
+      "final_prediction": "angry",
+      "confidence": 0.6234401562570843,
+      "speech_probabilities": {
+        "angry": 0.9922577142715454,
+        "disgust": 0.0004182188131380826,
+        "fear": 0.0019491384737193584,
+        "happy": 0.0051871007308363914,
+        "neutral": 5.995440460537793e-06,
+        "sad": 0.00013449834659695625,
+        "surprise": 4.7349407395813614e-05
+      },
+      "text_probabilities": {
+        "angry": 0.07021383371512627,
+        "disgust": 0.07849759040527274,
+        "fear": 0.06064813667819404,
+        "happy": 0.05954042790095579,
+        "neutral": 0.611913605791231,
+        "sad": 0.05536410768603699,
+        "surprise": 0.06382229782318326
+      },
+      "fusion_details": {
+        "weights": {
+          "speech": 0.6,
+          "text": 0.4
+        },
+        "used_labels": [
+          "angry",
+          "disgust",
+          "fear",
+          "happy",
+          "neutral",
+          "sad",
+          "surprise"
+        ],
+        "fused_probabilities": {
+          "angry": 0.6234401562570843,
+          "disgust": 0.031649967155956936,
+          "fear": 0.02542873751927078,
+          "happy": 0.02692843134871322,
+          "neutral": 0.24476903730681163,
+          "sad": 0.022226341875885465,
+          "surprise": 0.025557328536277703
+        }
+      }
+    }
+  },
+  {
+    "case": "Conflicting - Happy Audio + Sad Text",
+    "audio_type": "happy",
+    "text": "This is terrible. I feel so sad and broken.",
+    "result": {
+      "success": true,
+      "speech_prediction": "happy",
+      "text_prediction": "sad",
+      "final_prediction": "happy",
+      "confidence": 0.39278244355723313,
+      "speech_probabilities": {
+        "angry": 0.246860072016716,
+        "disgust": 0.001633720938116312,
+        "fear": 0.0839308649301529,
+        "happy": 0.58805912733078,
+        "neutral": 0.0004353609401732683,
+        "sad": 0.00018172392447013408,
+        "surprise": 0.07889915257692337
+      },
+      "text_probabilities": {
+        "angry": 0.10376139103333332,
+        "disgust": 0.17879829286155458,
+        "fear": 0.10160137217043566,
+        "happy": 0.09986743124601619,
+        "neutral": 0.1271758310074805,
+        "sad": 0.30327097300979583,
+        "surprise": 0.085524708671384
+      },
+      "fusion_details": {
+        "weights": {
+          "speech": 0.6,
+          "text": 0.4
+        },
+        "used_labels": [
+          "angry",
+          "disgust",
+          "fear",
+          "happy",
+          "neutral",
+          "sad",
+          "surprise"
+        ],
+        "fused_probabilities": {
+          "angry": 0.18962059704558482,
+          "disgust": 0.0724995487219038,
+          "fear": 0.09099906658918835,
+          "happy": 0.39278244355723313,
+          "neutral": 0.051131548271993475,
+          "sad": 0.1214174219080035,
+          "surprise": 0.08154937390609288
+        }
+      }
+    }
+  },
+  {
+    "case": "Neutral - Neutral Audio + Neutral Text",
+    "audio_type": "neutral",
+    "text": "The weather is nice today.",
+    "result": {
+      "success": true,
+      "speech_prediction": "neutral",
+      "text_prediction": "sad",
+      "final_prediction": "neutral",
+      "confidence": 0.6396072953057403,
+      "speech_probabilities": {
+        "angry": 5.8331494074082e-05,
+        "disgust": 0.0004712545487564057,
+        "fear": 0.0021317927166819572,
+        "happy": 0.0010381743777543306,
+        "neutral": 0.9832786917686462,
+        "sad": 0.01216021366417408,
+        "surprise": 0.0008615032420493662
+      },
+      "text_probabilities": {
+        "angry": 0.08183172530630335,
+        "disgust": 0.04455717044027379,
+        "fear": 0.23159208116471558,
+        "happy": 0.21489787602844562,
+        "neutral": 0.12410016397352706,
+        "sad": 0.23579030920389077,
+        "surprise": 0.06723067388284377
+      },
+      "fusion_details": {
+        "weights": {
+          "speech": 0.6,
+          "text": 0.4
+        },
+        "used_labels": [
+          "angry",
+          "disgust",
+          "fear",
+          "happy",
+          "neutral",
+          "sad",
+          "surprise"
+        ],
+        "fused_probabilities": {
+          "angry": 0.03276768976976263,
+          "disgust": 0.01810562132021236,
+          "fear": 0.0939159102477642,
+          "happy": 0.08658205702186113,
+          "neutral": 0.6396072953057403,
+          "sad": 0.10161225420827372,
+          "surprise": 0.027409172126385772
+        }
+      }
+    }
+  },
+  {
+    "case": "Conflicting - Sad Audio + Happy Text",
+    "audio_type": "sad",
+    "text": "I am thrilled and excited about this!",
+    "result": {
+      "success": true,
+      "speech_prediction": "sad",
+      "text_prediction": "happy",
+      "final_prediction": "sad",
+      "confidence": 0.5566145470151018,
+      "speech_probabilities": {
+        "angry": 6.345834663079586e-06,
+        "disgust": 0.0006640036008320749,
+        "fear": 1.4286150872067083e-05,
+        "happy": 7.115535481716506e-06,
+        "neutral": 0.10938118398189545,
+        "sad": 0.8899185657501221,
+        "surprise": 8.499362593283877e-06
+      },
+      "text_probabilities": {
+        "angry": 0.06487172249834454,
+        "disgust": 0.07550659940489092,
+        "fear": 0.223267906327226,
+        "happy": 0.42100092450715304,
+        "neutral": 0.07577946681836156,
+        "sad": 0.0566585190932985,
+        "surprise": 0.08291486135072534
+      },
+      "fusion_details": {
+        "weights": {
+          "speech": 0.6,
+          "text": 0.4
+        },
+        "used_labels": [
+          "angry",
+          "disgust",
+          "fear",
+          "happy",
+          "neutral",
+          "sad",
+          "surprise"
+        ],
+        "fused_probabilities": {
+          "angry": 0.025952496496765065,
+          "disgust": 0.030601041918481276,
+          "fear": 0.08931573420981369,
+          "happy": 0.16840463910227854,
+          "neutral": 0.09594049710402154,
+          "sad": 0.5566145470151018,
+          "surprise": 0.033171044153538
+        }
+      }
+    }
+  }
+]

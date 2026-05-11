@@ -1,0 +1,4 @@
+text,predicted_emotion,confidence
+I am so happy today,happy,0.5152449660548419
+I feel terrible and alone,sad,0.348502936260302
+Why did you do this?!,angry,0.27428421642611645

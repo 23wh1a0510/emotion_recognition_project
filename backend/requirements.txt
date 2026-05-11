@@ -1,0 +1,9 @@
+fastapi>=0.95.0
+uvicorn>=0.22.0
+python-multipart>=0.0.6
+aiofiles>=23.1.0
+pydantic>=1.10.0
+python-dotenv>=1.0.0
+numpy>=1.23.0
+joblib>=1.2.0
+scikit-learn>=1.2.0

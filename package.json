@@ -1,0 +1,12 @@
+{
+  "name": "mer-project",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start:frontend": "cd frontend && npm start",
+    "start:backend": "uvicorn backend.app.main:app --reload --host 0.0.0.0 --port 8000"
+  },
+  "description": "Project skeleton for Multimodal Emotion Recognition",
+  "author": "",
+  "license": "MIT"
+}

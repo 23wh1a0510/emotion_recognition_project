@@ -1,0 +1,302 @@
+[
+  {
+    "case": "matching: angry/angry",
+    "audio": "data/TESS\\TESS Toronto emotional speech set data\\OAF_angry\\OAF_back_angry.wav",
+    "text": "why did you do this",
+    "http_status": 200,
+    "elapsed_s": 6.95,
+    "response": {
+      "success": true,
+      "speech_prediction": "angry",
+      "text_prediction": "angry",
+      "final_prediction": "angry",
+      "confidence": 0.7050683085831373,
+      "speech_probabilities": {
+        "angry": 0.9922577142715454,
+        "disgust": 0.0004182188131380826,
+        "fear": 0.0019491384737193584,
+        "happy": 0.0051871007308363914,
+        "neutral": 5.995440460537793e-06,
+        "sad": 0.00013449834659695625,
+        "surprise": 4.7349407395813614e-05
+      },
+      "text_probabilities": {
+        "angry": 0.27428421642611645,
+        "disgust": 0.10690478831931324,
+        "fear": 0.1093219647287571,
+        "happy": 0.12567886507388254,
+        "neutral": 0.1268378644076552,
+        "sad": 0.12386673709650256,
+        "surprise": 0.1331055639477728
+      },
+      "fusion_details": {
+        "weights": {
+          "speech": 0.6,
+          "text": 0.4
+        },
+        "used_labels": [
+          "angry",
+          "disgust",
+          "fear",
+          "happy",
+          "neutral",
+          "sad",
+          "surprise"
+        ],
+        "fused_probabilities": {
+          "angry": 0.7050683085831373,
+          "disgust": 0.043012846216009544,
+          "fear": 0.044898268558619864,
+          "happy": 0.053383805972107796,
+          "neutral": 0.05073874255596456,
+          "sad": 0.04962739338551002,
+          "surprise": 0.053270634728650935
+        }
+      }
+    }
+  },
+  {
+    "case": "matching: happy/happy",
+    "audio": "data/TESS\\TESS Toronto emotional speech set data\\OAF_happy\\OAF_back_happy.wav",
+    "text": "I am so happy today",
+    "http_status": 200,
+    "elapsed_s": 0.19,
+    "response": {
+      "success": true,
+      "speech_prediction": "happy",
+      "text_prediction": "happy",
+      "final_prediction": "happy",
+      "confidence": 0.5589334552220403,
+      "speech_probabilities": {
+        "angry": 0.246860072016716,
+        "disgust": 0.001633720938116312,
+        "fear": 0.0839308649301529,
+        "happy": 0.58805912733078,
+        "neutral": 0.0004353609401732683,
+        "sad": 0.00018172392447013408,
+        "surprise": 0.07889915257692337
+      },
+      "text_probabilities": {
+        "angry": 0.08609953918910034,
+        "disgust": 0.05251357521792941,
+        "fear": 0.06704720047025213,
+        "happy": 0.5152449660548419,
+        "neutral": 0.09652427999138713,
+        "sad": 0.12246450947094488,
+        "surprise": 0.06010592960554416
+      },
+      "fusion_details": {
+        "weights": {
+          "speech": 0.6,
+          "text": 0.4
+        },
+        "used_labels": [
+          "angry",
+          "disgust",
+          "fear",
+          "happy",
+          "neutral",
+          "sad",
+          "surprise"
+        ],
+        "fused_probabilities": {
+          "angry": 0.18255585640393257,
+          "disgust": 0.02198566235115968,
+          "fear": 0.07717739809701224,
+          "happy": 0.5589334552220403,
+          "neutral": 0.038870928032231904,
+          "sad": 0.04909483747564522,
+          "surprise": 0.07138186241797816
+        }
+      }
+    }
+  },
+  {
+    "case": "matching: neutral/neutral",
+    "audio": "data/TESS\\TESS Toronto emotional speech set data\\OAF_neutral\\OAF_back_neutral.wav",
+    "text": "I am feeling okay",
+    "http_status": 200,
+    "elapsed_s": 0.17,
+    "response": {
+      "success": true,
+      "speech_prediction": "neutral",
+      "text_prediction": "neutral",
+      "final_prediction": "neutral",
+      "confidence": 0.7664697579013716,
+      "speech_probabilities": {
+        "angry": 5.8331494074082e-05,
+        "disgust": 0.0004712545487564057,
+        "fear": 0.0021317927166819572,
+        "happy": 0.0010381743777543306,
+        "neutral": 0.9832786917686462,
+        "sad": 0.01216021366417408,
+        "surprise": 0.0008615032420493662
+      },
+      "text_probabilities": {
+        "angry": 0.07845686521823045,
+        "disgust": 0.07613166346201584,
+        "fear": 0.08667708827627264,
+        "happy": 0.11786242310038769,
+        "neutral": 0.44125631319569614,
+        "sad": 0.12374774473331566,
+        "surprise": 0.07586790201408154
+      },
+      "fusion_details": {
+        "weights": {
+          "speech": 0.6,
+          "text": 0.4
+        },
+        "used_labels": [
+          "angry",
+          "disgust",
+          "fear",
+          "happy",
+          "neutral",
+          "sad",
+          "surprise"
+        ],
+        "fused_probabilities": {
+          "angry": 0.031417745703602576,
+          "disgust": 0.030735418818292164,
+          "fear": 0.035949911764228425,
+          "happy": 0.04776787496129952,
+          "neutral": 0.7664697579013716,
+          "sad": 0.05679522739316374,
+          "surprise": 0.03086406345804182
+        }
+      }
+    }
+  },
+  {
+    "case": "conflict: angry(speech)/happy(text)",
+    "audio": "data/TESS\\TESS Toronto emotional speech set data\\OAF_angry\\OAF_back_angry.wav",
+    "text": "I am so happy today",
+    "http_status": 200,
+    "elapsed_s": 0.181,
+    "response": {
+      "success": true,
+      "speech_prediction": "angry",
+      "text_prediction": "happy",
+      "final_prediction": "angry",
+      "confidence": 0.6297944383876413,
+      "speech_probabilities": {
+        "angry": 0.9922577142715454,
+        "disgust": 0.0004182188131380826,
+        "fear": 0.0019491384737193584,
+        "happy": 0.0051871007308363914,
+        "neutral": 5.995440460537793e-06,
+        "sad": 0.00013449834659695625,
+        "surprise": 4.7349407395813614e-05
+      },
+      "text_probabilities": {
+        "angry": 0.08609953918910034,
+        "disgust": 0.05251357521792941,
+        "fear": 0.06704720047025213,
+        "happy": 0.5152449660548419,
+        "neutral": 0.09652427999138713,
+        "sad": 0.12246450947094488,
+        "surprise": 0.06010592960554416
+      },
+      "fusion_details": {
+        "weights": {
+          "speech": 0.6,
+          "text": 0.4
+        },
+        "used_labels": [
+          "angry",
+          "disgust",
+          "fear",
+          "happy",
+          "neutral",
+          "sad",
+          "surprise"
+        ],
+        "fused_probabilities": {
+          "angry": 0.6297944383876413,
+          "disgust": 0.02125636117757844,
+          "fear": 0.027988363012314544,
+          "happy": 0.20921024491683035,
+          "neutral": 0.03861330890210522,
+          "sad": 0.049066502340497746,
+          "surprise": 0.024070781263032408
+        }
+      }
+    }
+  },
+  {
+    "case": "conflict: happy(speech)/sad(text)",
+    "audio": "data/TESS\\TESS Toronto emotional speech set data\\OAF_happy\\OAF_back_happy.wav",
+    "text": "I feel terrible and sad",
+    "http_status": 200,
+    "elapsed_s": 0.178,
+    "response": {
+      "success": true,
+      "speech_prediction": "happy",
+      "text_prediction": "sad",
+      "final_prediction": "happy",
+      "confidence": 0.39639414920512916,
+      "speech_probabilities": {
+        "angry": 0.246860072016716,
+        "disgust": 0.001633720938116312,
+        "fear": 0.0839308649301529,
+        "happy": 0.58805912733078,
+        "neutral": 0.0004353609401732683,
+        "sad": 0.00018172392447013408,
+        "surprise": 0.07889915257692337
+      },
+      "text_probabilities": {
+        "angry": 0.09619308759903118,
+        "disgust": 0.08931220882578927,
+        "fear": 0.10008828903288225,
+        "happy": 0.10889669548850384,
+        "neutral": 0.10102586597843438,
+        "sad": 0.4252378922922252,
+        "surprise": 0.07924596078313395
+      },
+      "fusion_details": {
+        "weights": {
+          "speech": 0.6,
+          "text": 0.4
+        },
+        "used_labels": [
+          "angry",
+          "disgust",
+          "fear",
+          "happy",
+          "neutral",
+          "sad",
+          "surprise"
+        ],
+        "fused_probabilities": {
+          "angry": 0.18659327571301856,
+          "disgust": 0.036705115594201504,
+          "fear": 0.09039383334239477,
+          "happy": 0.39639414920512916,
+          "neutral": 0.04067156240257225,
+          "sad": 0.17020418895774844,
+          "surprise": 0.07903787478493517
+        }
+      }
+    }
+  },
+  {
+    "case": "neutral speech + empty text",
+    "audio": "data/TESS\\TESS Toronto emotional speech set data\\OAF_neutral\\OAF_back_neutral.wav",
+    "text": "",
+    "http_status": 422,
+    "elapsed_s": 0.005,
+    "response": {
+      "detail": [
+        {
+          "type": "missing",
+          "loc": [
+            "body",
+            "text"
+          ],
+          "msg": "Field required",
+          "input": null
+        }
+      ]
+    }
+  }
+]
