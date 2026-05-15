@@ -147,23 +147,56 @@ async def multimodal_predict(request: Request, file: UploadFile = File(...), tex
             raise HTTPException(status_code=HTTP_500_INTERNAL_SERVER_ERROR, detail="Text model not available on server")
 
         # Run speech inference (returns same format as speech endpoint)
-        speech_result = mer_model.infer_audio(saved_path)
+        try:
+            speech_result = mer_model.infer_audio(saved_path)
+        except Exception as exc:
+            utils.LOG.exception("Speech inference failed in multimodal pipeline; falling back to empty speech output")
+            speech_result = {
+                'predicted_emotion': None,
+                'confidence': 0.0,
+                'all_probabilities': {},
+            }
 
         # Run text inference
-        text_result = text_model.infer_text(text)
+        try:
+            text_result = text_model.infer_text(text)
+        except Exception as exc:
+            utils.LOG.exception("Text inference failed in multimodal pipeline; falling back to empty text output")
+            text_result = {
+                'predicted_emotion': None,
+                'confidence': 0.0,
+                'all_probabilities': {},
+            }
 
         # Prepare probability maps aligned on label set
-        speech_probs = speech_result.get('all_probabilities', {})
-        text_probs = text_result.get('all_probabilities', {})
+        speech_probs = speech_result.get('all_probabilities', {}) or {}
+        text_probs = text_result.get('all_probabilities', {}) or {}
 
-        # Determine label set: union of both; prefer labels present in speech label encoder
-        speech_labels = list(mer_model.label_encoder.classes_)
-        text_labels = list(text_model.label_encoder.classes_)
+        # Determine label set: union of both. For text model using transformer pipeline the
+        # label set will be keys of text_probs; avoid relying on scikit-learn attributes.
+        def _labels_from_model_or_probs(model, probs):
+            encoder = getattr(model, 'label_encoder', None)
+            if encoder is not None and hasattr(encoder, 'classes_'):
+                try:
+                    return [str(x) for x in list(encoder.classes_)]
+                except Exception:
+                    pass
+            return [str(x) for x in list(probs.keys())]
+
+        speech_labels = _labels_from_model_or_probs(mer_model, speech_probs)
+        text_labels = _labels_from_model_or_probs(text_model, text_probs)
+
+        # Preserve order: speech labels first, then text-only labels
         labels = list(dict.fromkeys(speech_labels + text_labels))
 
         # Default fusion weights (can be tuned)
         w_speech = float(request.query_params.get('w_speech', 0.6))
         w_text = float(request.query_params.get('w_text', 0.4))
+
+        # Log incoming probabilities for debugging
+        utils.LOG.info("Multimodal fusion inputs: speech_probs=%s", speech_probs)
+        utils.LOG.info("Multimodal fusion inputs: text_probs=%s", text_probs)
+        utils.LOG.info("Multimodal fusion labels: %s", labels)
 
         fused = {}
         for lbl in labels:
@@ -177,8 +210,16 @@ async def multimodal_predict(request: Request, file: UploadFile = File(...), tex
             fused = {k: float(v / total) for k, v in fused.items()}
 
         # Final prediction
-        final_label = max(fused.items(), key=lambda x: x[1])[0]
-        final_conf = float(fused[final_label])
+        if fused:
+            final_label = max(fused.items(), key=lambda x: x[1])[0]
+            final_conf = float(fused[final_label])
+        else:
+            final_label = None
+            final_conf = 0.0
+
+        # Log fusion outputs
+        utils.LOG.info("Fused probabilities: %s", fused)
+        utils.LOG.info("Multimodal fusion result: final=%s conf=%.4f", final_label, final_conf)
 
         resp = {
             "success": True,

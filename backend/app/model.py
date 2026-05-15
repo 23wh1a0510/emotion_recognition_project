@@ -127,20 +127,65 @@ class MERModel:
 
 
 class TextEmotionModel:
-    """Runtime wrapper for text emotion inference artifacts."""
+    """Runtime wrapper for text emotion inference.
+
+    Implementation notes:
+    - Prefer a transformer-based zero-shot classifier (NLI) for contextual understanding.
+    - Use a small/efficient MNLI model on CPU (distilbert-based) for reasonable latency.
+    - If `transformers` or the pipeline fails to initialize (no network, dependency missing),
+      gracefully fall back to the legacy joblib TF-IDF + classifier artifact if available.
+    """
 
     def __init__(self, artifact_path: str):
         self.artifact_path = Path(artifact_path)
+        self.use_transformer = True
+        self.hf_model_name = 'typeform/distilbert-base-uncased-mnli'
+        self._pipeline = None
+
+        # legacy artifacts
         self.vectorizer = None
         self.classifier = None
         self.label_encoder = None
         self.config = None
 
     def load(self):
+        # Try to initialize a HuggingFace zero-shot pipeline for contextual classification.
+        try:
+            import os
+            # ensure HF cache is writable inside project to avoid permission errors
+            project_root = Path(__file__).resolve().parents[2]
+            hf_cache = project_root / '.hf_cache'
+            hf_cache.mkdir(parents=True, exist_ok=True)
+            os.environ.setdefault('HF_HOME', str(hf_cache))
+            os.environ.setdefault('TRANSFORMERS_CACHE', str(hf_cache))
+            os.environ.setdefault('HF_DATASETS_CACHE', str(hf_cache))
+
+            from transformers import pipeline
+            import torch
+
+            # set thread count for CPU performance
+            try:
+                torch.set_num_threads(max(1, torch.get_num_threads()))
+            except Exception:
+                pass
+
+            LOG.info("Initializing HuggingFace zero-shot pipeline using %s with cache=%s", self.hf_model_name, hf_cache)
+            # hypothesis_template improves emotion phrasing
+            self._pipeline = pipeline(
+                'zero-shot-classification',
+                model=self.hf_model_name,
+                device=-1,  # CPU
+            )
+            LOG.info("Zero-shot pipeline ready")
+            return
+        except Exception:
+            LOG.exception("Transformer pipeline initialization failed, will attempt legacy joblib fallback")
+
+        # Fallback: load legacy joblib artifact (TF-IDF + classifier)
         if not self.artifact_path.exists():
             raise FileNotFoundError(f"Text model artifact not found: {self.artifact_path}")
 
-        LOG.info("Loading text model artifact from %s", self.artifact_path)
+        LOG.info("Loading legacy text model artifact from %s", self.artifact_path)
         artifact = joblib.load(str(self.artifact_path))
         self.vectorizer = artifact.get('vectorizer')
         self.classifier = artifact.get('classifier')
@@ -150,7 +195,36 @@ class TextEmotionModel:
         if self.vectorizer is None or self.classifier is None or self.label_encoder is None:
             raise ValueError("Text artifact missing vectorizer/classifier/label_encoder")
 
-    def infer_text(self, text: str) -> Dict[str, Any]:
+    def _infer_transformer(self, text: str) -> Dict[str, Any]:
+        start_total = time.perf_counter()
+        cleaned = text_utils.clean_text(text)
+        if not cleaned:
+            raise ValueError("Text is empty after preprocessing")
+
+        candidate_labels = ['angry', 'disgust', 'fear', 'happy', 'neutral', 'sad', 'surprise']
+        try:
+            res = self._pipeline(cleaned, candidate_labels, hypothesis_template='This example expresses {}.')
+        except Exception as exc:
+            LOG.exception("Transformer pipeline failed during inference: %s", exc)
+            raise
+
+        # pipeline returns labels sorted by score
+        labels = res.get('labels', [])
+        scores = res.get('scores', [])
+        prob_map = {labels[i]: float(scores[i]) for i in range(len(labels))}
+        top_label = labels[0] if labels else None
+        top_score = float(scores[0]) if scores else 0.0
+
+        return {
+            'predicted_emotion': top_label,
+            'confidence': top_score,
+            'all_probabilities': prob_map,
+            'cleaned_text': cleaned,
+            'token_count': len(text_utils.tokenize(cleaned)),
+            'elapsed_seconds': round(time.perf_counter() - start_total, 4),
+        }
+
+    def _infer_legacy(self, text: str) -> Dict[str, Any]:
         start_total = time.perf_counter()
         cleaned = text_utils.clean_text(text)
         tokens = text_utils.tokenize(cleaned)
@@ -178,3 +252,10 @@ class TextEmotionModel:
             'token_count': len(tokens),
             'elapsed_seconds': round(time.perf_counter() - start_total, 4),
         }
+
+    def infer_text(self, text: str) -> Dict[str, Any]:
+        # Prefer transformer pipeline if available, else legacy
+        if self._pipeline is not None:
+            return self._infer_transformer(text)
+        else:
+            return self._infer_legacy(text)
