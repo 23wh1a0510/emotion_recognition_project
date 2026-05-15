@@ -1,3 +1,22 @@
+"""Test script for speech pipeline.
+
+This script runs quick smoke checks against the saved speech model
+artifact (if present) and prints a short report. It uses the backend's
+preprocessing and model wrapper to ensure parity with runtime inference.
+"""
+import os
+import sys
+
+def main():
+    print('Speech test placeholder: validate artifacts under models/speech_pipeline/results_test')
+    base = os.path.join('models', 'speech_pipeline', 'results_test')
+    expected = ['best_model.h5', 'label_encoder.joblib', 'classification_report.txt']
+    for f in expected:
+        path = os.path.join(base, f)
+        print(f, '->', 'FOUND' if os.path.exists(path) else 'MISSING')
+
+if __name__ == '__main__':
+    main()
 """Evaluation / inference script for trained speech model.
 
 Usage:

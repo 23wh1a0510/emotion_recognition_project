@@ -17,19 +17,34 @@ Speech and text endpoints return:
 - confidence
 - all_probabilities
 
-## Train Text Model
+## Project Structure & Training
+
+The repository follows the deliverable structure used for submission. Key folders:
+
+```
+models/
+	speech_pipeline/
+	text_pipeline/
+	fusion_pipeline/
+Results/
+	accuracy_tables/
+	plots/
+```
+
+Train/test entrypoints for each pipeline (placeholders) exist under `models/*_pipeline/`.
+
+### Example: train or test a pipeline
 
 From repository root:
 
-python models/text_pipeline/train.py --out_dir models/text_pipeline/results_test
+```powershell
+python models\text_pipeline\train.py --out_dir models\text_pipeline\results_test
+python models\text_pipeline\test.py
+```
 
-Generated artifacts include:
-- models/text_pipeline/results_test/text_model.joblib
-- models/text_pipeline/results_test/training_log.csv
-- models/text_pipeline/results_test/classification_report.txt
-- models/text_pipeline/results_test/confusion_matrix.png
-- models/text_pipeline/results_test/sanity_predictions.csv
-
+Artifacts produced by training (if you run training) will be written into each
+pipeline's `results_test` folder. Existing evaluation reports are available in
+`Results/accuracy_tables` and plots are referenced from `Results/plots/README.md`.
 ## Run Full Stack
 
 Backend:

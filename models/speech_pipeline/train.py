@@ -1,3 +1,25 @@
+"""Train script placeholder for speech pipeline.
+
+This wrapper documents how to train the speech model and provides a
+convenient CLI entrypoint for automated runs. The original training
+code (if present) should be called from here. For now this file simply
+prints instructions so it is safe to include in the deliverable structure.
+"""
+import argparse
+import sys
+
+
+def main():
+    parser = argparse.ArgumentParser(description='Speech pipeline trainer (placeholder)')
+    parser.add_argument('--out_dir', default='models/speech_pipeline/results_test', help='Output directory for artifacts')
+    args = parser.parse_args()
+
+    print('Speech training placeholder. Replace this with your training code.')
+    print('Suggested: call the original training script and save artifacts to', args.out_dir)
+
+
+if __name__ == '__main__':
+    main()
 """Training script for speech-only emotion recognition model.
 
 Usage:

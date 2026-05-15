@@ -1,3 +1,20 @@
+"""Train script placeholder for text pipeline.
+
+Use this entrypoint to run text model training (TF-IDF + classifier)
+and write artifacts to the provided --out_dir. This is a placeholder for
+the deliverable structure; replace with real training calls as needed.
+"""
+import argparse
+import sys
+
+def main():
+    parser = argparse.ArgumentParser(description='Text pipeline trainer (placeholder)')
+    parser.add_argument('--out_dir', default='models/text_pipeline/results_test', help='Output directory for artifacts')
+    args = parser.parse_args()
+    print('Text training placeholder. Save model artifacts to', args.out_dir)
+
+if __name__ == '__main__':
+    main()
 """Training script for real text emotion classification.
 
 Chosen approach: TF-IDF + Logistic Regression
