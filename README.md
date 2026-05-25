@@ -53,8 +53,10 @@ python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000
 
 Frontend (production build):
 
-cd frontend
-npm run build
+cd frontend //
+
+npm run build //
+
 npx serve -s build -l 3000
 
 Open http://localhost:3000 and test Speech or Text pages.
