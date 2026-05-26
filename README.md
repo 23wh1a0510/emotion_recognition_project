@@ -66,6 +66,9 @@ Run Evaluations
 From the project root:
 
 python evaluate_speech.py //
+
 python evaluate_text.py  //
+
 python evaluate_transformer.py //
+
 python evaluate_multimodal.py
